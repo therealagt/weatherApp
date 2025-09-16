@@ -23,10 +23,24 @@ function handleButtonClick() {
     })
     .then(data => {
         console.log('Weather data:', data);
-    })
+    const cityName = data.address;
+    const conditions = data.currentConditions.conditions;
+    const temp = data.currentConditions.temp;
+    const day1 = data.days[1].temp; 
+    const day2 = data.days[2].temp; 
+    const day3 = data.days[3].temp; 
+    const weatherDiv = document.getElementById('weather');
+    weatherDiv.innerHTML = `
+        <h2>${cityName}</h2>
+        <p>${conditions}</p>
+        <p>${temp}°C</p>
+        <h4>Temperature the next 3 Days</h4>
+        <p>${day1}°C</p>
+        <p>${day2}°C</p>
+        <p>${day3}°C</p>
+    `;
+})
     .catch(error => {
-        error.text().then(errorMessage => {
-            console.error('Error fetching data:', errorMessage);
+        alert('Error fetching data:', error);
         });
-    });
 }
